@@ -1,0 +1,32 @@
+plugins {
+    id 'java-library'
+}
+repositories {
+    mavenCentral()
+}
+
+def junitVersion = "5.8.1"
+dependencies {
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter-api:$junitVersion")
+
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle {
+            events "started", "skipped", "failed"
+            exceptionFormat "short"
+        }
+    }
+}
+
